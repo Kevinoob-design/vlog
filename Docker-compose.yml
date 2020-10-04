@@ -4,15 +4,15 @@ services:
     backend:
         container_name: SSR
         build: ./
-        command: npm run docker:dev
+        command: npm run docker-dev
 
         environment: 
+            NODE_ENV: testing
             MONGO_HOST: mongodb://mongo:27017/vlog
 
         working_dir: /usr/src/vlog
         ports: 
             - "3000:3000"
-            - "5858:5858"
             - "9229:9229"
         volumes: 
             - ./:/usr/src/vlog

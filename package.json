@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server",
-    "docker:dev": "nodemon --inspect=0.0.0.0 server",
+    "docker-dev": "node --inspect=0.0.0.0 server",
     "build": "next build",
     "start": "next start"
   },
