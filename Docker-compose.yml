@@ -1,0 +1,27 @@
+version: "3.6"
+
+services:
+    backend:
+        container_name: SSR
+        build: ./
+        command: npm run docker:dev
+
+        environment: 
+            MONGO_HOST: mongodb://mongo:27017/vlog
+
+        working_dir: /usr/src/vlog
+        ports: 
+            - "3000:3000"
+            - "5858:5858"
+            - "9229:9229"
+        volumes: 
+            - ./:/usr/src/vlog
+            - /usr/src/vlog/node_modules
+
+    database:
+        container_name: mongo
+        image: mongo
+        ports: 
+            - "27017:27017"
+        volumes: 
+            - ./:/usr/src/vlog
