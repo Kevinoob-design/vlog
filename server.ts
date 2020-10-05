@@ -1,12 +1,21 @@
-import { Application } from "express";
-import { Mongoose } from "mongoose";
+import { Application } from 'express';
+import { Mongoose } from 'mongoose';
+
+// Require of third party middleware.
+import express from 'express';
+import morgan from 'morgan';
+import helmet from 'helmet';
+
+// Require native Node modules
+import fs from 'fs';
+import path from 'path';
 
 export default (() => {
   // Verifying enviroment for Next.JS
-  const dev = process.env.NODE_ENV !== "production";
+  const dev = process.env.NODE_ENV !== 'production';
 
   // Starting next app with enviroment config and requesting handler to pass down on express.
-  const next = require("next");
+  const next = require('next');
   const app = next({ dev });
   const handle = app.getRequestHandler();
 
@@ -15,8 +24,8 @@ export default (() => {
     .prepare()
     .then(() => {
       // Getting default enviroment variables.
-      const { PORT, DBURI } = require("./config/config");
-      const mongoose: Mongoose = require("mongoose");
+      const { PORT, DBURI } = require('./config/config');
+      const mongoose: Mongoose = require('mongoose');
 
       // Database connection with URI link AUTH
       mongoose.connect(
@@ -31,37 +40,36 @@ export default (() => {
           if (err) {
             throw err;
           }
-          console.log("> Data Base Online");
+          console.log('> Data Base Online');
         }
       );
-
-      // Require of third party middleware.
-      const express = require("express");
-      const morgan = require("morgan");
-      const helmet = require("helmet");
-
-      // Require native Node modules
-      const fs = require("fs");
-      const path = require("path");
 
       // Init constants
       const server: Application = express();
       const accessLogStream = fs.createWriteStream(
-        path.join(__dirname, "logs/access.log"),
-        { flags: "a" }
+        path.join(__dirname, 'logs/access.log'),
+        { flags: 'a' }
       );
 
       // Injection of third party middlewares
-      server.use(morgan("combined", { stream: accessLogStream }));
+      server.use(
+        morgan('dev', {
+          stream: accessLogStream,
+        })
+      );
       server.use(helmet());
 
       // Injection of first party middlewares
 
       // Initiation API routes
-      require('./src/services/user/user.service')('/api/user', server, mongoose);
+      require('./src/services/user/user.service')(
+        '/api/user',
+        server,
+        mongoose
+      );
 
       // Redirecting front end trafic to Next.JS Handle
-      server.get("*", (req, res) => {
+      server.get('*', (req, res) => {
         return handle(req, res);
       });
 
