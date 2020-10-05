@@ -12,5 +12,5 @@ const enviroment = {
         "DBURI": process.env.DBURI || process.env.MONGO_HOST
     }
 }
-
+console.log(`> Enviroment: ${process.env.NODE_ENV}`);
 module.exports = enviroment[process.env.NODE_ENV || "development"];

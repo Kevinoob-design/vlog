@@ -9,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/mongoose": "^5.7.36",
+    "@types/mongoose-unique-validator": "^1.0.4",
     "express": "^4.17.1",
     "helmet": "^4.1.1",
     "mongoose": "^5.10.7",

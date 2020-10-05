@@ -3,8 +3,10 @@ FROM node:12.18.4
 
 WORKDIR /usr/src/vlog
 
-COPY ./ ./
+COPY ./package*.json ./
 
 RUN npm install
+
+COPY ./ ./
 
 CMD [ "/bin/bash" ]
