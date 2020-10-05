@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "nodemon server.ts",
     "docker-dev": "node --inspect=0.0.0.0 server",
     "build": "next build",
     "start": "next start"
