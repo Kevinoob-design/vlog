@@ -1,9 +1,11 @@
-interface IEnviromentConfig {
+export interface IEnviromentConfig {
     PORT: number;
     DBURI: string;
+    SALT: number;
+    SECRET: string;
 }
 
-export default interface IEnviroment {
+export interface IEnviroment {
     development: IEnviromentConfig;
     testing: IEnviromentConfig;
     production: IEnviromentConfig;

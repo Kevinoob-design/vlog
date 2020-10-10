@@ -2,7 +2,7 @@
     "extends": ["tslint:recommended", "tslint-config-prettier"],
     "rules": {
       "max-classes-per-file": false,
-      "max-line-length": [true, 260],
+      "max-line-length": [true, 120],
       "no-unnecessary-initializer": false,
       "no-var-requires": true,
       "no-null-keyword": true,
@@ -54,7 +54,7 @@
       ],
       "align": [true, "parameters"],
       "class-name": true,
-      "curly": true,
+      "curly": false,
       "eofline": true,
       "jsdoc-format": true,
       "member-access": true,

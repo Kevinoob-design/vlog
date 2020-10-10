@@ -1,22 +1,26 @@
-import IEnviroment from "./config.types";
+import {IEnviroment, IEnviromentConfig} from './config.types';
 
 const enviroment: IEnviroment = {
     development: {
-        "PORT":     3000,
-        "DBURI":    "mongodb://localhost:27017/vlog"
+        'PORT':     3000,
+        'DBURI':    'mongodb://localhost:27017/vlog',
+        'SALT':     10,
+        'SECRET':   'SecretMessage123!@',
     },
     testing: {
-        "PORT":     3000,
-        "DBURI":    process.env.MONGO_HOST
+        'PORT':     3000,
+        'DBURI':    process.env.MONGO_HOST,
+        'SALT':     10,
+        'SECRET':   'SecretMessage123!@',
     },
     production: {
-        "PORT":     Number(process.env.PORT) || 3000,
-        "DBURI":    process.env.DBURI || process.env.MONGO_HOST
-    }
-}
+        'PORT':     Number(process.env.PORT) || 3000,
+        'DBURI':    process.env.DBURI || process.env.MONGO_HOST,
+        'SALT':     Number(process.env.SALT),
+        'SECRET':   process.env.SECRET,
+    },
+};
 console.log(`> Enviroment: ${process.env.NODE_ENV}`);
 
-export default enviroment[process.env.NODE_ENV || "development"];
-
-export const PORT = enviroment[process.env.NODE_ENV || "development"].PORT;
-export const DBURI = enviroment[process.env.NODE_ENV || "development"].DBURI;
+const config: IEnviromentConfig = enviroment[process.env.NODE_ENV || 'development'];
+export default config;

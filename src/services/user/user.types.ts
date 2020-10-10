@@ -1,21 +1,39 @@
-import { Document } from "mongoose";
+import { Document, HookNextFunction } from 'mongoose';
 
 interface IAccount {
   email: string;
   password: string;
 }
 
-interface IContactInfo {
-  email: string;
-  telephone: number;
+interface IRecovery {
+  email: [string];
+  telephone: [string];
 }
 
-export default interface IUser extends Document {
-  _id: number;
-  name: string;
+enum role {
+  user,
+  admin,
+}
+
+export interface IUser extends Document {
+  _id: string;
+  firstName: string;
   lastName: string;
   fullName?: string;
-  account: IAccount;
-  contactInfo: IContactInfo;
+  followers: number;
+  bio?: string;
+  socialMedia?: [Map<string, string>];
+  bookmarks?: [string];
+  account?: IUserAccount;
   createdDate: Date;
+  role: role;
+}
+
+export interface IUserAccount extends Document {
+  _id: string;
+  account: IAccount;
+  recovery: IRecovery;
+  createdDate: Date;
+  encryptPassword: (next: HookNextFunction) => Promise<void>;
+  comparePassword: (password: string) => Promise<boolean>;
 }
