@@ -1,11 +1,11 @@
 // Require interface types
 import { Application } from 'express';
-import { connect } from 'mongoose';
-import { IEnviromentConfig } from './config/config.types';
 
 // Imports
 import next from 'next';
 import express from 'express';
+import { connect } from 'mongoose';
+import { initializeApp } from 'firebase';
 
 // Require of third party middleware.
 import morgan from 'morgan';
@@ -17,7 +17,7 @@ import fs from 'fs';
 import path from 'path';
 
 // Require first handlers || helpers
-import RoutesHandler from './src/shared/handle.routes';
+import RoutesHandler from './src/shared/routes/handle.routes';
 
 export default (() => {
   // Verifying enviroment for Next.JS
@@ -32,7 +32,7 @@ export default (() => {
     .prepare()
     .then(() => {
       // Getting default enviroment variables.
-      const config: IEnviromentConfig = require('./config/config').default;
+      const { config, fireBaseConfig } = require('./config/config');
 
       // Init constants
       const server: Application = express();
@@ -54,6 +54,9 @@ export default (() => {
           console.log('> Data Base Online');
         }
       );
+
+      initializeApp(fireBaseConfig);
+      console.log('> Fire Base Online');
 
       // Injection of third party middlewares
       server.use(morgan('dev', {stream: accessLogStream}));

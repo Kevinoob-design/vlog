@@ -1,12 +1,13 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
+import {userAccountSchema} from './userAccount.schema';
 import { IUser } from './user.types';
 
 const type = Schema.Types;
 
 const userSchema: Schema<IUser> = new Schema({
   _id: {
-    type: type.ObjectId,
+    type: type.String,
     required: [true, 'ID most be provided'],
   },
   firstName: {
@@ -17,6 +18,7 @@ const userSchema: Schema<IUser> = new Schema({
     type: type.String,
     required: [true, 'User most provide a last name'],
   },
+  account: userAccountSchema,
   followers: {
     type: type.Number,
     required: false,
@@ -56,5 +58,17 @@ userSchema.virtual('fullName').get((): string => {
     const user: IUser = this;
     return `${user.firstName} ${user.lastName}`;
 });
+
+userSchema.methods.verifyRequiredProps = function(): { valid: boolean, missing: string } {
+  const user = this;
+
+  if (!user.account) return { valid: false, missing: 'Account info is required' };
+  if (!user.account.email) return { valid: false, missing: 'Missing email' };
+  if (!user.account.password) return { valid: false, missing: 'Missing password' };
+  if (!user.firstName) return { valid: false, missing: 'Missing first name' };
+  if (!user.lastName) return { valid: false, missing: 'Missing last name' };
+
+  return { valid: true, missing: 'None' };
+};
 
 export default model<IUser>('User', userSchema);

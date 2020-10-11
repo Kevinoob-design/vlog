@@ -1,13 +1,8 @@
 import { Document, HookNextFunction } from 'mongoose';
 
-interface IAccount {
-  email: string;
-  password: string;
-}
-
 interface IRecovery {
-  email: [string];
-  telephone: [string];
+  email: string;
+  telephone: string;
 }
 
 enum role {
@@ -24,14 +19,15 @@ export interface IUser extends Document {
   bio?: string;
   socialMedia?: [Map<string, string>];
   bookmarks?: [string];
-  account?: IUserAccount;
+  account: IUserAccount;
   createdDate: Date;
   role: role;
+  verifyRequiredProps: () => { valid: boolean, missing: string };
 }
 
 export interface IUserAccount extends Document {
-  _id: string;
-  account: IAccount;
+  email: string;
+  password: string;
   recovery: IRecovery;
   createdDate: Date;
   encryptPassword: (next: HookNextFunction) => Promise<void>;
