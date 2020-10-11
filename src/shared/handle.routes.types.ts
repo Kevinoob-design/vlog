@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
 export interface IHandle {
-    handleSucces: (res: Response) => (result: any) => void;
-    handleError: (res: Response) => (result: any) => void;
+    handleSucces: (res: Response, statusCode: number) => (result: any) => void;
+    handleError: (res: Response, statusCode: number) => (result: any) => void;
 }

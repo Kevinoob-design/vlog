@@ -1,6 +1,6 @@
 // Require interface types
 import { Application } from 'express';
-import { Mongoose } from 'mongoose';
+import { connect } from 'mongoose';
 import { IEnviromentConfig } from './config/config.types';
 
 // Imports
@@ -10,6 +10,7 @@ import express from 'express';
 // Require of third party middleware.
 import morgan from 'morgan';
 import helmet from 'helmet';
+import bodyParser from 'body-parser';
 
 // Require native Node modules
 import fs from 'fs';
@@ -35,11 +36,10 @@ export default (() => {
 
       // Init constants
       const server: Application = express();
-      const mongoose: Mongoose = new Mongoose();
       const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' });
 
       // Database connection with URI link AUTH
-      mongoose.connect(
+      connect(
         config.DBURI,
         {
           useNewUrlParser: true,
@@ -58,6 +58,7 @@ export default (() => {
       // Injection of third party middlewares
       server.use(morgan('dev', {stream: accessLogStream}));
       server.use(helmet());
+      server.use(bodyParser.json());
 
       // Injection of first party middlewares
 

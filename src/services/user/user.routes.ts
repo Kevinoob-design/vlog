@@ -7,7 +7,7 @@ module.exports = (prefix: string, app: Application, handler: IHandle) => {
 
   const user = new User();
 
-  app.get(`${prefix}/signin`, (req: Request, res: Response) => {
-    user.getUserByID(req.body._id).then(handler.handleSucces(res)).catch(handler.handleError(res));
+  app.get(`${prefix}/login`, (req: Request, res: Response) => {
+    user.getUserByID(req.body).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
   });
 };

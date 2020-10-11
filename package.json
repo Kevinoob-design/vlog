@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "helmet": "^4.1.1",
     "mongoose": "^5.10.7",
@@ -21,6 +22,7 @@
     "tslint-config-prettier": "^1.18.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.0",
     "@types/bcrypt": "^3.0.0",
     "@types/mongoose": "^5.7.36",
     "@types/mongoose-unique-validator": "^1.0.4",
