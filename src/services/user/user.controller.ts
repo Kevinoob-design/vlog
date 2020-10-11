@@ -3,6 +3,11 @@ import { IUser } from './user.types';
 import * as fb from 'firebase';
 export default class User {
 
+  /**
+   * Method to create a new user with Fire Base
+   * @param  {IUser} payload
+   * @returns Promise with user Doc
+   */
   public singUpUserWithFB = (payload: IUser): Promise<any> => {
     return new Promise((resolve, rejects) => {
       if (!payload) return rejects({ msg: 'Missing required payload to sign in' });
@@ -33,6 +38,11 @@ export default class User {
     });
   }
 
+  /**
+   * Method to login a user with fireabse
+   * @param  {IUser} payload
+   * @returns Promise with user Doc
+   */
   public logInUserWithFB = (payload: IUser): Promise<any> => {
     return new Promise((resolve, rejects) => {
       if (!payload || !payload.account || !payload.account.email || !payload.account.password)
@@ -53,6 +63,11 @@ export default class User {
     });
   }
 
+  /**
+   * Gets user based ID
+   * @param  {string} _id
+   * @returns Promise with user Doc
+   */
   public getUserByID = (_id: string): Promise<IUser> => {
     return new Promise((resolve, rejects) => {
       if (!_id) return rejects({ msg: 'Error, required ID missing' });
