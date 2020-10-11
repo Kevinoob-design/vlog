@@ -1,6 +1,7 @@
 import UserSchema from './user.schema';
 import { IUser } from './user.types';
-import * as fb from 'firebase';
+import { auth } from 'firebase';
+import { auth as authAdmin } from 'firebase-admin';
 export default class User {
 
   /**
@@ -17,7 +18,7 @@ export default class User {
 
       if (!verified.valid) return rejects({ msg: verified.missing });
 
-      fb.auth()
+      auth()
         .createUserWithEmailAndPassword(payload.account.email, payload.account.password)
         .then((resp) => {
           if (!resp) return rejects({ msg: 'Unable to create user' });
@@ -29,7 +30,7 @@ export default class User {
           return user.save().then((doc) => {
             doc.account = undefined;
             doc.role = undefined;
-            resolve({ doc, bearer: resp.user.refreshToken });
+            resolve({ doc, bearer: resp.user.refreshToken, resp });
           });
         })
         .catch((err) => {
@@ -48,13 +49,15 @@ export default class User {
       if (!payload || !payload.account || !payload.account.email || !payload.account.password)
         return rejects({ msg: 'Missing email or password' });
 
-      fb.auth()
+      auth()
         .signInWithEmailAndPassword(payload.account.email, payload.account.password)
-        .then((resp) => {
+        .then(async (resp) => {
           if (!resp) return rejects({ msg: 'Unable to create user' });
 
+         const bearer = await authAdmin().createCustomToken(resp.user.uid);
+
           return this.getUserByID(resp.user.uid).then((doc) => {
-            resolve({ doc, bearer: resp.user.refreshToken });
+            resolve({ doc, bearer });
           });
         })
         .catch((err) => {
@@ -72,7 +75,7 @@ export default class User {
     return new Promise((resolve, rejects) => {
       if (!_id) return rejects({ msg: 'Error, required ID missing' });
 
-      UserSchema.findById(_id, {account: 0, createdDate: 0, _id: 0, role: 0})
+      UserSchema.findById(_id, { account: 0, createdDate: 0, _id: 0, role: 0 })
         .then((user) => {
           if (!user) return rejects({ msg: 'The user does not exist' });
           resolve(user);

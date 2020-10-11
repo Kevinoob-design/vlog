@@ -6,11 +6,15 @@ import next from 'next';
 import express from 'express';
 import { connect } from 'mongoose';
 import { initializeApp } from 'firebase';
+import { initializeApp as initializeAppAdmin, credential } from 'firebase-admin';
 
 // Require of third party middleware.
 import morgan from 'morgan';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
+
+// Require first party middleware.
+import { verifyAuthUser } from './src/middleware/auth';
 
 // Require native Node modules
 import fs from 'fs';
@@ -55,7 +59,14 @@ export default (() => {
         }
       );
 
+      const serviceAccount = require('./serviceAccountKey.json');
+
       initializeApp(fireBaseConfig);
+      initializeAppAdmin({
+        credential: credential.cert(serviceAccount),
+        databaseURL: 'https://vlog-ef753.firebaseio.com',
+      });
+
       console.log('> Fire Base Online');
 
       // Injection of third party middlewares
@@ -64,6 +75,7 @@ export default (() => {
       server.use(bodyParser.json());
 
       // Injection of first party middlewares
+      server.use('/api/user/get', verifyAuthUser);
 
       // Initiation API routes
       require('./src/services/user/user.routes')('/api/user', server, new RoutesHandler());

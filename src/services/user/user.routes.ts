@@ -15,7 +15,7 @@ module.exports = (prefix: string, app: Application, handler: IHandle) => {
     user.logInUserWithFB(req.body).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
   });
 
-  app.get(`${prefix}/get/:id`, (req: Request, res: Response) => {
-    user.getUserByID(req.params.id).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
+  app.get(`${prefix}/get`, (req: Request, res: Response) => {
+    user.getUserByID(req.uid).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
   });
 };
