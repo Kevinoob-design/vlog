@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { auth } from 'firebase';
 
 export const verifyAuthUser = (req: Request, res: Response, next: NextFunction): void => {
-    if (!req.headers.authorization) res.redirect('/');
+    if (!req.headers.authorization) return res.redirect('/');
 
     const token = req.headers.authorization.split(' ')[1];
 

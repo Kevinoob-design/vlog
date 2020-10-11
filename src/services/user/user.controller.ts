@@ -1,5 +1,5 @@
 import UserSchema from './user.schema';
-import { IUser } from './user.types';
+import { IUser } from './user';
 import { auth } from 'firebase';
 import { auth as authAdmin } from 'firebase-admin';
 export default class User {
@@ -20,17 +20,19 @@ export default class User {
 
       auth()
         .createUserWithEmailAndPassword(payload.account.email, payload.account.password)
-        .then((resp) => {
+        .then(async (resp) => {
           if (!resp) return rejects({ msg: 'Unable to create user' });
 
           user._id = resp.user.uid;
           user.account.recovery.email = resp.user.email;
           if (resp.user.phoneNumber) user.account.recovery.telephone = resp.user.phoneNumber;
 
+          const bearer = await authAdmin().createCustomToken(resp.user.uid);
+
           return user.save().then((doc) => {
             doc.account = undefined;
             doc.role = undefined;
-            resolve({ doc, bearer: resp.user.refreshToken, resp });
+            resolve({ doc, bearer });
           });
         })
         .catch((err) => {

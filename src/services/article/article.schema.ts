@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import IArticle from './article.types';
+import IArticle from './article';
 
 const type = Schema.Types;
 

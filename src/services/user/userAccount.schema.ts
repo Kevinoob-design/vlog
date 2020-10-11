@@ -1,5 +1,5 @@
 import { Schema, HookNextFunction } from 'mongoose';
-import { IUserAccount } from './user.types';
+import { IUserAccount } from './user';
 import uniqueValidator from 'mongoose-unique-validator';
 import { compare, hash } from 'bcrypt';
 import { config } from '../../../config/config';

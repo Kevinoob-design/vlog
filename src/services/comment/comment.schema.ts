@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import IComment from './comment.types';
+import IComment from './comment';
 
 const type = Schema.Types;
 
