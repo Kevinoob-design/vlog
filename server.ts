@@ -1,3 +1,6 @@
+// Getting default enviroment variables.
+import { config, fireBaseConfig } from './config/config';
+
 // Require interface types
 import { Application } from 'express';
 
@@ -35,8 +38,6 @@ export default (() => {
   app
     .prepare()
     .then(() => {
-      // Getting default enviroment variables.
-      const { config, fireBaseConfig } = require('./config/config');
 
       // Init constants
       const server: Application = express();
