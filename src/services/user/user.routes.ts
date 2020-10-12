@@ -15,7 +15,11 @@ module.exports = (prefix: string, app: Application, handler: IHandle) => {
     user.logInUserWithFB(req.body).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
   });
 
-  app.get(`${prefix}/get`, (req: Request, res: Response) => {
+  app.get(`${prefix}/access/get`, (req: Request, res: Response) => {
     user.getUserByID(req.uid).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
+  });
+
+  app.delete(`${prefix}/access/delete`, (req: Request, res: Response) => {
+    user.disableUserByID(req.uid, req.token).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
   });
 };

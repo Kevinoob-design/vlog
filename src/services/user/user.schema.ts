@@ -48,6 +48,11 @@ const userSchema: Schema<IUser> = new Schema({
     required: [true, 'A new user most have a role'],
     default: 'user',
   },
+  deleted: {
+    type: type.Boolean,
+    required: false,
+    default: false,
+  },
 });
 
 userSchema.plugin(uniqueValidator, {

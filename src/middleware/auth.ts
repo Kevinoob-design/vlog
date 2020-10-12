@@ -8,6 +8,7 @@ export const verifyAuthUser = (req: Request, res: Response, next: NextFunction):
 
     auth().signInWithCustomToken(token).then(resp => {
         req.uid = resp.user.uid;
+        req.token = token;
         next();
     }).catch(err => {
         res.redirect('/');

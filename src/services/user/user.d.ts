@@ -22,6 +22,7 @@ export interface IUser extends Document {
   account: IUserAccount;
   createdDate: Date;
   role: role;
+  deleted: boolean;
   verifyRequiredProps: () => { valid: boolean, missing: string };
 }
 

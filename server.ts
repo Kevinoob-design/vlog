@@ -75,7 +75,7 @@ export default (() => {
       server.use(bodyParser.json());
 
       // Injection of first party middlewares
-      server.use('/api/user/get', verifyAuthUser);
+      server.use('/api/user/access/', verifyAuthUser);
 
       // Initiation API routes
       require('./src/services/user/user.routes')('/api/user', server, new RoutesHandler());

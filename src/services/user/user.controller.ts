@@ -3,7 +3,6 @@ import { IUser } from './user';
 import { auth } from 'firebase';
 import { auth as authAdmin } from 'firebase-admin';
 export default class User {
-
   /**
    * Method to create a new user with Fire Base
    * @param  {IUser} payload
@@ -56,7 +55,7 @@ export default class User {
         .then(async (resp) => {
           if (!resp) return rejects({ msg: 'Unable to create user' });
 
-         const bearer = await authAdmin().createCustomToken(resp.user.uid);
+          const bearer = await authAdmin().createCustomToken(resp.user.uid);
 
           return this.getUserByID(resp.user.uid).then((doc) => {
             resolve({ doc, bearer });
@@ -77,13 +76,30 @@ export default class User {
     return new Promise((resolve, rejects) => {
       if (!_id) return rejects({ msg: 'Error, required ID missing' });
 
-      UserSchema.findById(_id, { account: 0, createdDate: 0, _id: 0, role: 0 })
+      UserSchema.findOne({ _id, deleted: false }, { account: 0, createdDate: 0, _id: 0, role: 0 })
         .then((user) => {
           if (!user) return rejects({ msg: 'The user does not exist' });
           resolve(user);
         })
         .catch((err) => {
           rejects({ err, msg: 'Something went wrong while looking for the user' });
+        });
+    });
+  }
+
+  public disableUserByID = (_id: string, token?: string): Promise<object> => {
+    return new Promise((resolve, rejects) => {
+      authAdmin().deleteUser(_id);
+      authAdmin().revokeRefreshTokens(_id);
+
+      return UserSchema.updateOne({ _id }, { $set: { deleted: true } })
+      .then(({ nModified }) => {
+        if (nModified === 0) return rejects({ msg: 'User was not deleted' });
+        resolve({ nModified });
+
+      }).catch((err) => {
+          console.log(err);
+          rejects({ err, msg: 'User was not deleted' });
         });
     });
   }
