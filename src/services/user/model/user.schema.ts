@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import {userAccountSchema} from './userAccount.schema';
-import { IUser } from './user';
+import { IUser } from '../user';
 
 const type = Schema.Types;
 

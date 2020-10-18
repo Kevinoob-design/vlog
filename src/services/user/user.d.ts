@@ -2,6 +2,7 @@ import { Document, HookNextFunction } from 'mongoose';
 
 interface IRecovery {
   email: string;
+  emailVerified: boolean;
   telephone: string;
 }
 

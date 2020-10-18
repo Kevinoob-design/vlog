@@ -1,8 +1,8 @@
 import { Schema, HookNextFunction } from 'mongoose';
-import { IUserAccount } from './user';
+import { IUserAccount } from '../user';
 import uniqueValidator from 'mongoose-unique-validator';
 import { compare, hash } from 'bcrypt';
-import { config } from '../../../config/config';
+import { config } from '../../../../config/config';
 
 const type = Schema.Types;
 
@@ -24,6 +24,11 @@ export const userAccountSchema: Schema<IUserAccount> = new Schema({
       required: false,
       lowercase: true,
       trim: true,
+    },
+    emailVerified: {
+      type: type.Boolean,
+      required: false,
+      default: false,
     },
     telephone: {
       type: type.String,

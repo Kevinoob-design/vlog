@@ -5,8 +5,15 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "docker-dev": "nodemon --inspect=0.0.0.0 server.ts",
-    "build": "next build",
-    "start": "next start"
+    "next-build": "next build",
+    "next-start": "next start",
+    "lint": "eslint \"src/**/*\"",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

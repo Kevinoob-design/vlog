@@ -7,7 +7,7 @@
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      120
+      160
     ],
     "no-unnecessary-initializer": false,
     "no-var-requires": true,
@@ -103,7 +103,7 @@
       "check-finally",
       "check-whitespace"
     ],
-    "semicolon": true,
+    "semicolon": false,
     "switch-default": true,
     "triple-equals": [
       true,

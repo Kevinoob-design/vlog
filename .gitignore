@@ -35,3 +35,5 @@ yarn-error.log*
 .env
 access.log
 serviceAccountKey.json
+
+/functions/node_modules
