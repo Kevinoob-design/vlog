@@ -1,7 +1,7 @@
 import User from './user.controller';
 
 import { Request, Response, Application } from 'express';
-import { IHandle } from 'src/shared/routes/handle.routes.types';
+import { IHandle } from 'src/shared/routes/handle.routes.d';
 
 module.exports = (prefix: string, app: Application, handler: IHandle) => {
   const user = new User();

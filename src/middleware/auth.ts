@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { auth } from 'firebase';
 
+export const requireAuth = (req: Request, res: Response, next: NextFunction): void => {
+  if (!req.fbUser) return res.redirect('/');
+  next();
+};
+
 export const verifyAuthUser = (req: Request, res: Response, next: NextFunction): void => {
-  if (!req.headers.authorization) return res.redirect('/');
+  if (!req.headers.authorization) return next();
 
   const token = req.headers.authorization.split(' ')[1];
 
@@ -15,6 +20,6 @@ export const verifyAuthUser = (req: Request, res: Response, next: NextFunction):
       next();
     })
     .catch((err) => {
-      res.redirect('/');
+      next();
     });
 };

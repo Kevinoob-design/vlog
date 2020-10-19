@@ -1,17 +1,17 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import IArticle from '../article';
+import { IArticle } from '../article';
 
 const type = Schema.Types;
 
-const articleSchema: Schema = new Schema({
+const articleSchema: Schema<IArticle> = new Schema({
   _id: {
     type: type.ObjectId,
-    unique: true,
     required: [true, 'ID must be generated as an object id'],
+    default: Types.ObjectId(),
   },
   uid: {
-    type: type.ObjectId,
+    type: type.String,
     required: [true, 'Owner user ID most be pressent on the article'],
     ref: 'User',
   },
@@ -22,6 +22,11 @@ const articleSchema: Schema = new Schema({
   title: {
     type: type.String,
     required: [true, 'The title most be provided'],
+  },
+  imgUrl: {
+    type: type.String,
+    required: [false, 'The title most be provided'],
+    default: 'https://via.placeholder.com/350x200',
   },
   post: {
     type: type.String,
@@ -34,7 +39,7 @@ const articleSchema: Schema = new Schema({
       required: false,
       default: 0,
     },
-    likes : {
+    likes: {
       type: type.Number,
       required: false,
       default: 0,
@@ -77,5 +82,17 @@ const articleSchema: Schema = new Schema({
 articleSchema.plugin(uniqueValidator, {
   message: '{PATH} must be unique',
 });
+
+articleSchema.methods.verifyRequiredProps = function (): { valid: boolean; missing: string } {
+  const article = this;
+
+  if (!article.uid) return { valid: false, missing: 'Owner ID is required' };
+  if (!article.category) return { valid: false, missing: 'Missing category' };
+  if (!article.category.length) return { valid: false, missing: 'Missing category' };
+  if (!article.title) return { valid: false, missing: 'Missing title' };
+  if (!article.post) return { valid: false, missing: 'Missing article' };
+
+  return { valid: true, missing: 'None' };
+};
 
 export default model<IArticle>('Article', articleSchema);

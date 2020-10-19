@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import ICategory from '../category';
+import { ICategory } from '../category';
 
 const type = Schema.Types;
 
-const categorySchema: Schema = new Schema({
+export const categorySchema: Schema<ICategory> = new Schema({
   _id: {
     type: type.ObjectId,
     required: [true, 'ID most be provided'],
@@ -30,4 +30,12 @@ categorySchema.plugin(uniqueValidator, {
   message: '{PATH} must be unique',
 });
 
-export default model<ICategory>('User', categorySchema);
+categorySchema.methods.verifyRequiredProps = function (): { valid: boolean; missing: string } {
+  const category = this;
+
+  if (!category.category) return { valid: false, missing: 'Missing category' };
+
+  return { valid: true, missing: 'None' };
+};
+
+export default model<ICategory>('Category', categorySchema);

@@ -1,11 +1,11 @@
 import { Document } from 'mongoose';
 
 enum commentType {
-    ArticleReply,
-    CommentReply,
+  ArticleReply,
+  CommentReply,
 }
 
-export default interface IComment extends Document {
+export interface IComment extends Document {
   _id: string;
   uid: string;
   articleId: string;
@@ -15,4 +15,5 @@ export default interface IComment extends Document {
   created: Date;
   edited: boolean;
   lastModified: Date;
+  verifyRequiredProps: () => { valid: boolean; missing: string };
 }

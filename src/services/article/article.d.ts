@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { ICategory } from '../category/category';
 
 interface IData {
   views: number;
@@ -11,15 +12,17 @@ interface IAvalability {
   reason: string;
 }
 
-export default interface IArticle extends Document {
+export interface IArticle extends Document {
   _id: string;
   uid: string;
-  category: [string];
+  category: [ICategory];
   title: string;
+  imgUrl: string;
   post: string;
   data: IData;
   avalability: IAvalability;
   created: Date;
   edited: boolean;
   lastModified: Date;
+  verifyRequiredProps: () => { valid: boolean; missing: string };
 }

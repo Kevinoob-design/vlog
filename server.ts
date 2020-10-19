@@ -17,7 +17,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 
 // Require first party middleware.
-import { verifyAuthUser } from './src/middleware/auth';
+import { verifyAuthUser, requireAuth } from './src/middleware/auth';
 
 // Require native Node modules
 import fs from 'fs';
@@ -38,7 +38,6 @@ export default (() => {
   app
     .prepare()
     .then(() => {
-
       // Init constants
       const server: Application = express();
       const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' });
@@ -71,15 +70,20 @@ export default (() => {
       console.log('> Fire Base Online');
 
       // Injection of third party middlewares
-      server.use(morgan('dev', {stream: accessLogStream}));
+      server.use(morgan('dev', { stream: accessLogStream }));
       server.use(helmet());
       server.use(bodyParser.json());
 
       // Injection of first party middlewares
-      server.use('/api/user/access/', verifyAuthUser);
+      server.use('/api/', verifyAuthUser);
+      server.use('/api/user/access/', requireAuth);
+      server.use('/api/category/access/', requireAuth);
+      server.use('/api/article/access/', requireAuth);
 
       // Initiation API routes
       require('./src/services/user/user.routes')('/api/user', server, new RoutesHandler());
+      require('./src/services/category/category.routes')('/api/category', server, new RoutesHandler());
+      require('./src/services/article/article.routes')('/api/article', server, new RoutesHandler());
 
       // Redirecting front end trafic to Next.JS Handle
       server.get('*', (req, res) => {

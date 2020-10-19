@@ -6,6 +6,13 @@ interface IRecovery {
   telephone: string;
 }
 
+interface Articles {
+  dontShow?: [string];
+  dislikes?: [string];
+  likes?: [string];
+  viewed?: [string];
+}
+
 enum role {
   user,
   admin,
@@ -24,7 +31,8 @@ export interface IUser extends Document {
   createdDate: Date;
   role: role;
   deleted: boolean;
-  verifyRequiredProps: () => { valid: boolean, missing: string };
+  articles: Articles;
+  verifyRequiredProps: () => { valid: boolean; missing: string };
 }
 
 export interface IUserAccount extends Document {

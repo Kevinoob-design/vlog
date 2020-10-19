@@ -75,7 +75,7 @@ export default class User {
     return new Promise((resolve, rejects) => {
       if (!_id) return rejects({ msg: 'Error, required ID missing' });
 
-      UserSchema.findOne({ _id, deleted: false }, { account: 0, createdDate: 0, _id: 0, role: 0 })
+      UserSchema.findOne({ _id, deleted: false }, { account: 0, createdDate: 0, _id: 0, role: 0, deleted: 0 })
         .then((user) => {
           if (!user) return rejects({ msg: 'The user does not exist' });
           resolve(user);

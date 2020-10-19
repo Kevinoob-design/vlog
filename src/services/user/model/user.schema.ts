@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import {userAccountSchema} from './userAccount.schema';
+import { userAccountSchema } from './userAccount.schema';
 import { IUser } from '../user';
 
 const type = Schema.Types;
@@ -37,6 +37,28 @@ const userSchema: Schema<IUser> = new Schema({
     type: [type.ObjectId],
     required: false,
   },
+  articles: {
+    dontShow: {
+      type: [type.String],
+      required: false,
+      default: [],
+    },
+    viewed: {
+      type: [type.String],
+      required: false,
+      default: [],
+    },
+    dislikes: {
+      type: [type.String],
+      required: false,
+      default: [],
+    },
+    likes: {
+      type: [type.String],
+      required: false,
+      default: [],
+    },
+  },
   createdDate: {
     type: Date,
     default: Date.now,
@@ -60,11 +82,11 @@ userSchema.plugin(uniqueValidator, {
 });
 
 userSchema.virtual('fullName').get((): string => {
-    const user: IUser = this;
-    return `${user.firstName} ${user.lastName}`;
+  const user: IUser = this;
+  return `${user.firstName} ${user.lastName}`;
 });
 
-userSchema.methods.verifyRequiredProps = function(): { valid: boolean, missing: string } {
+userSchema.methods.verifyRequiredProps = function (): { valid: boolean; missing: string } {
   const user = this;
 
   if (!user.account) return { valid: false, missing: 'Account info is required' };

@@ -1,13 +1,14 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import IComment from '../comment';
+import { IComment } from '../comment.d';
 
 const type = Schema.Types;
 
-const commentSchema: Schema = new Schema({
+const commentSchema: Schema<IComment> = new Schema({
   _id: {
     type: type.ObjectId,
     required: [true, 'ID most be provided'],
+    default: Types.ObjectId(),
   },
   uid: {
     type: type.ObjectId,
@@ -55,4 +56,16 @@ commentSchema.plugin(uniqueValidator, {
   message: '{PATH} must be unique',
 });
 
-export default model<IComment>('User', commentSchema);
+commentSchema.methods.verifyRequiredProps = function (): { valid: boolean; missing: string } {
+  const comment = this;
+
+  if (!comment.uid) return { valid: false, missing: 'Owner ID is required' };
+  if (!comment.articleId) return { valid: false, missing: 'Missing article ID' };
+  if (!comment.targetCommentId) return { valid: false, missing: 'Missing target comment' };
+  if (!comment.comment) return { valid: false, missing: 'Missing title' };
+  if (!comment.type) return { valid: false, missing: 'Missing type of comment' };
+
+  return { valid: true, missing: 'None' };
+};
+
+export default model<IComment>('Comment', commentSchema);
