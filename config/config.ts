@@ -1,10 +1,10 @@
-import { IEnviroment, IEnviromentConfig, IFireBaseConfig, IAdminFireBaseConfig } from './config.d';
+import { IEnvironment, IEnvironmentConfig, IFireBaseConfig, IAdminFireBaseConfig } from './config.d';
 import { readFileSync } from 'fs';
 
 const AdminFirebasePrivateKey = readFileSync('key.pem').toString();
 
-// Creating config based enviroment
-const enviroment: IEnviroment = {
+// Creating config based environment
+const environment: IEnvironment = {
     development: {
         'PORT':                                         3000,
         'DBURI':                                        process.env.MONGO_HOST || 'mongodb://localhost:27017/vlog',
@@ -17,7 +17,7 @@ const enviroment: IEnviroment = {
         FIRE_BASE_STORAGE_BUCKET:                       'vlog-ef753.appspot.com',
         FIRE_BASE_MESSAGING_SENDER_ID:                  '307422040444',
         FIRE_BASE_APP_ID:                               '1:307422040444:web:52198af42677b79a3514f9',
-        FIRE_BASE_MEASURMENT_ID:                        'G-9LRTHKDH8R',
+        FIRE_BASE_MEASUREMENT_ID:                        'G-9LRTHKDH8R',
         ADMIN_FIRE_BASE_TYPE:                           'service_account',
         ADMIN_FIRE_BASE_PROJECT_ID:                     'vlog-ef753',
         ADMIN_FIRE_BASE_PRIVATE_KEY_ID:                 '5870b46a21c2d4904674b77afb5b354375d69216',
@@ -41,7 +41,7 @@ const enviroment: IEnviroment = {
         FIRE_BASE_STORAGE_BUCKET:                       'vlog-ef753.appspot.com',
         FIRE_BASE_MESSAGING_SENDER_ID:                  '307422040444',
         FIRE_BASE_APP_ID:                               '1:307422040444:web:52198af42677b79a3514f9',
-        FIRE_BASE_MEASURMENT_ID:                        'G-9LRTHKDH8R',
+        FIRE_BASE_MEASUREMENT_ID:                        'G-9LRTHKDH8R',
         ADMIN_FIRE_BASE_TYPE:                           'service_account',
         ADMIN_FIRE_BASE_PROJECT_ID:                     'vlog-ef753',
         ADMIN_FIRE_BASE_PRIVATE_KEY_ID:                 '5870b46a21c2d4904674b77afb5b354375d69216',
@@ -65,7 +65,7 @@ const enviroment: IEnviroment = {
         FIRE_BASE_STORAGE_BUCKET:                       process.env.FIRE_BASE_STORAGE_BUCKET,
         FIRE_BASE_MESSAGING_SENDER_ID:                  process.env.FIRE_BASE_MESSAGING_SENDER_ID,
         FIRE_BASE_APP_ID:                               process.env.FIRE_BASE_APP_ID,
-        FIRE_BASE_MEASURMENT_ID:                        process.env.FIRE_BASE_MEASURMENT_ID,
+        FIRE_BASE_MEASUREMENT_ID:                        process.env.FIRE_BASE_MEASURMENT_ID,
         ADMIN_FIRE_BASE_TYPE:                           process.env.ADMIN_FIRE_BASE_TYPE,
         ADMIN_FIRE_BASE_PROJECT_ID:                     process.env.ADMIN_FIRE_BASE_PROJECT_ID,
         ADMIN_FIRE_BASE_PRIVATE_KEY_ID:                 process.env.ADMIN_FIRE_BASE_PRIVATE_KEY_ID,
@@ -78,10 +78,10 @@ const enviroment: IEnviroment = {
         ADMIN_FIRE_BASE_CLIENT_X509_CERT_URL:           process.env.ADMIN_FIRE_BASE_CLIENT_X509_CERT_URL,
     },
 };
-console.log(`> Enviroment: ${process.env.NODE_ENV}`);
+console.log(`> Environment: ${process.env.NODE_ENV}`);
 
 // Export configurations
-export const config: IEnviromentConfig = enviroment[process.env.NODE_ENV || 'development'];
+export const config: IEnvironmentConfig = environment[process.env.NODE_ENV || 'development'];
 
 export const fireBaseConfig: IFireBaseConfig = {
     apiKey:                                             config.FIRE_BASE_API_KEY,
@@ -91,7 +91,7 @@ export const fireBaseConfig: IFireBaseConfig = {
     storageBucket:                                      config.FIRE_BASE_STORAGE_BUCKET,
     messagingSenderId:                                  config.FIRE_BASE_MESSAGING_SENDER_ID,
     appId:                                              config.FIRE_BASE_APP_ID,
-    measurementId:                                      config.FIRE_BASE_MEASURMENT_ID,
+    measurementId:                                      config.FIRE_BASE_MEASUREMENT_ID,
 };
 
 export const serviceAccount: IAdminFireBaseConfig = {

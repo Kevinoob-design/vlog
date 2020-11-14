@@ -7,6 +7,6 @@ module.exports = (prefix: string, app: Application, handler: IHandle) => {
   const comment = new Comment();
 
   app.get(`${prefix}/access/create-comment`, (req: Request, res: Response) => {
-    comment.createComment(req.body, req.fbUser).then(handler.handleSucces(res, 200)).catch(handler.handleError(res, 400));
+    comment.createComment(req.body, req.fbUser).then(handler.handleSuccess(res, 200)).catch(handler.handleError(res, 400));
   });
 };

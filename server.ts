@@ -1,4 +1,4 @@
-// Getting default enviroment variables.
+// Getting default environment variables.
 import { config, fireBaseConfig } from './config/config';
 
 // Require interface types
@@ -27,10 +27,10 @@ import path from 'path';
 import RoutesHandler from './src/shared/routes/handle.routes';
 
 export default (() => {
-  // Verifying enviroment for Next.JS
+  // Verifying environment for Next.JS
   const dev = process.env.NODE_ENV !== 'production';
 
-  // Starting next app with enviroment config and requesting handler to pass down on express.
+  // Starting next app with environment config and requesting handler to pass down on express.
   const app = next({ dev });
   const handle = app.getRequestHandler();
 
@@ -69,12 +69,12 @@ export default (() => {
 
       console.log('> Fire Base Online');
 
-      // Injection of third party middlewares
+      // Injection of third party middleware
       server.use(morgan('dev', { stream: accessLogStream }));
       server.use(helmet());
       server.use(bodyParser.json());
 
-      // Injection of first party middlewares
+      // Injection of first party middleware
       server.use('/api/', verifyAuthUser);
       server.use('/api/user/access/', requireAuth);
       server.use('/api/category/access/', requireAuth);
@@ -85,7 +85,7 @@ export default (() => {
       require('./src/services/category/category.routes')('/api/category', server, new RoutesHandler());
       require('./src/services/article/article.routes')('/api/article', server, new RoutesHandler());
 
-      // Redirecting front end trafic to Next.JS Handle
+      // Redirecting front end traffic to Next.JS Handle
       server.get('*', (req, res) => {
         return handle(req, res);
       });

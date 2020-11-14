@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { IHandle } from './handle.routes.d';
 
 export default class RoutesHandler implements IHandle {
-  public handleSucces = (res: Response, statusCode: number) => {
+  public handleSuccess = (res: Response, statusCode: number) => {
     return (payload: any) => {
       if (payload.bearer) res.setHeader('Bearer', payload.bearer.toString());
 

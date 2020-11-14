@@ -1,4 +1,4 @@
-export interface IEnviromentConfig {
+export interface IEnvironmentConfig {
   PORT:                                                     number;
   DBURI:                                                    string;
   SALT:                                                     number;
@@ -10,7 +10,7 @@ export interface IEnviromentConfig {
   FIRE_BASE_STORAGE_BUCKET:                                 string;
   FIRE_BASE_MESSAGING_SENDER_ID:                            string;
   FIRE_BASE_APP_ID:                                         string;
-  FIRE_BASE_MEASURMENT_ID:                                  string;
+  FIRE_BASE_MEASUREMENT_ID:                                  string;
   ADMIN_FIRE_BASE_TYPE:                                     string;
   ADMIN_FIRE_BASE_PROJECT_ID:                               string;
   ADMIN_FIRE_BASE_PRIVATE_KEY_ID:                           string;
@@ -47,8 +47,8 @@ export interface IAdminFireBaseConfig {
   client_x509_cert_url:                                     string;                                    
 }
 
-export interface IEnviroment {
-  development:                                              IEnviromentConfig;
-  testing:                                                  IEnviromentConfig;
-  production:                                               IEnviromentConfig;
+export interface IEnvironment {
+  development:                                              IEnvironmentConfig;
+  testing:                                                  IEnvironmentConfig;
+  production:                                               IEnvironmentConfig;
 }

@@ -45,7 +45,8 @@
     "jsx": "preserve",
     "typeRoots": [
       "./@types",
-      "./node_modules/@types"
+      "./node_modules/@types",
+      "./src/shared/routes"
     ]
   },
   "include": [
