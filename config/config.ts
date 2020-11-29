@@ -8,6 +8,7 @@ const environment: IEnvironment = {
     development: {
         'PORT':                                         3000,
         'DBURI':                                        process.env.MONGO_HOST || 'mongodb://localhost:27017/vlog',
+        'SERVER':                                       process.env.SERVER_HOST || 'http://localhost:3000/api',
         'SALT':                                         10,
         'SECRET':                                       'SecretMessage123!@',
         FIRE_BASE_API_KEY:                              'AIzaSyCjJLZWdaIFju_8e01BOiyg_AYhxzj349k',
@@ -32,6 +33,7 @@ const environment: IEnvironment = {
     testing: {
         'PORT':                                         3000,
         'DBURI':                                        process.env.MONGO_HOST,
+        'SERVER':                                       process.env.SERVER_HOST || 'http://localhost:3000/api',
         'SALT':                                         10,
         'SECRET':                                       'SecretMessage123!@',
         FIRE_BASE_API_KEY:                              'AIzaSyCjJLZWdaIFju_8e01BOiyg_AYhxzj349k',
@@ -56,6 +58,7 @@ const environment: IEnvironment = {
     production: {
         'PORT':                                         Number(process.env.PORT) || 3000,
         'DBURI':                                        process.env.DBURI || process.env.MONGO_HOST,
+        'SERVER':                                       process.env.SERVER_HOST || 'http://localhost:3000/api',
         'SALT':                                         Number(process.env.SALT),
         'SECRET':                                       process.env.SECRET,
         FIRE_BASE_API_KEY:                              process.env.FIRE_BASE_API_KEY,

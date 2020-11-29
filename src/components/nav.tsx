@@ -7,7 +7,6 @@ const Nav = () => {
     <nav className='h-10 flex mb-14'>
       <HalfContainer>
         <NavLink href='/' />
-        <NavLink href='profile' />
       </HalfContainer>
 
       <HalfContainer className='flex justify-end'>
