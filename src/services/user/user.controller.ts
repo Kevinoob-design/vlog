@@ -103,6 +103,16 @@ export default class User {
     });
   };
 
+  public addSocialMedia = (social: Map<string, string>, _id: string): Promise<object> => {
+    return new Promise((resolve, rejects) => {
+      if ((!social && typeof social !== 'string') || !_id) return rejects({ msg: 'Missing required payload' });
+
+      UserSchema.findOneAndUpdate({ _id }, { $set: { socialMedia: social } })
+        .then(resolve)
+        .catch(rejects);
+    });
+  };
+
   public addRecoveryPhone = (telephone: string, _id: string): Promise<object> => {
     return new Promise((resolve, rejects) => {
       if ((!telephone && typeof telephone !== 'string') || !_id) return rejects({ msg: 'Missing required payload' });

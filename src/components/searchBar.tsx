@@ -1,4 +1,5 @@
 import { FaSearch, FaTimes } from 'react-icons/Fa';
+import IconButton from './IconButton';
 
 declare type Props = {
   placeHolder: string;
@@ -20,7 +21,7 @@ const SearchBar = ({ placeHolder, className, onChange }: React.PropsWithoutRef<P
 
       <input className='w-full bg-transparent outline-none' type='text' placeholder={placeHolder} onChange={onChange} onReset={onChange} />
 
-      <button type='submit' className='ml-2 my-auto focus:outline-none'>
+      <button type='submit' className='ml-2 my-auto focus:outline-none hover:bg-gray-700 rounded-xl transition p-1'>
         <FaTimes />
       </button>
     </form>

@@ -1,5 +1,9 @@
-const ProfilePic = () => {
-  return <div className='rounded-full h-8 w-8 bg-gray-400'></div>;
+type Props = {
+  className?: string;
+};
+
+const ProfilePic = ({ className = 'h-8 w-8' }: React.PropsWithoutRef<Props>) => {
+  return <div className={`rounded-full bg-gray-400 ${className}`}></div>;
 };
 
 export default ProfilePic;

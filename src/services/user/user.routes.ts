@@ -14,6 +14,10 @@ module.exports = (prefix: string, app: Application, handler: IHandle) => {
     user.logInUserWithFB(req.body).then(handler.handleSuccess(res, 200)).catch(handler.handleError(res, 400));
   });
 
+  app.post(`${prefix}/access/update/social`, (req: Request, res: Response) => {
+    user.addSocialMedia(req.body, req.uid).then(handler.handleSuccess(res, 200)).catch(handler.handleError(res, 400));
+  });
+
   app.post(`${prefix}/access/update/phone`, (req: Request, res: Response) => {
     user.addRecoveryPhone(req.body.telephone, req.uid).then(handler.handleSuccess(res, 200)).catch(handler.handleError(res, 400));
   });
