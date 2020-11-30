@@ -19,7 +19,7 @@ const CreateArticle = () => {
 
   return (
     <div className='mx-auto space-y-2 max-w-6xl min-h-screen text-black'>
-      <SunEditor height={500} enableToolbar={true} setDefaultStyle='font-size: 16px;' setOptions={options} />
+      <SunEditor height={500} enableToolbar={true} setDefaultStyle='font-size: 20px;' setOptions={options} />
     </div>
   );
 };

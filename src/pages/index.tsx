@@ -44,7 +44,7 @@ const Home = ({}: React.PropsWithoutRef<Articles>) => {
       {!articles || error ? (
         <h1>Loading...</h1>
       ) : (
-        <div className='flex flex-wrap justify-between'>
+        <div className='flex flex-wrap justify-between min-h-screen'>
           {articles.map(({ _id, created, imgUrl, title, uid, category, data }) => (
             <CardArticle key={_id} _id={_id} title={title} created={created} uid={uid} category={category} data={data} />
           ))}

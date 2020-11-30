@@ -20,10 +20,13 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
           Published on <span className='font-bold'>{moment(created).format('LL')}</span>
         </p>
         <UserCard uid={uid} />
-        <p className='text-6xl'>{title}</p>
 
-        <div className='min-h-screen text-xl tracking-wider leading-normal'>
-          <p>{post}</p>
+        <div className='space-y-10'>
+          <p className='text-6xl'>{title}</p>
+
+          <div className='min-h-screen text-xl tracking-wider leading-normal'>
+            <p>{post}</p>
+          </div>
         </div>
 
         <div>
