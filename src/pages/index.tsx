@@ -1,6 +1,5 @@
 import SearchBar from '../components/searchBar';
 import CardArticle from '../components/cardArticle';
-import { config } from 'config/config';
 import { useGetPosts } from './useRequest';
 
 export type User = {
@@ -56,20 +55,3 @@ const Home = ({}: React.PropsWithoutRef<Articles>) => {
 };
 
 export default Home;
-
-// export const getServerSideProps = (context) => {
-//   return new Promise((resolve, reject) => {
-//     console.log(context);
-
-//     fetch(`${config.SERVER}/article/get-articles`)
-//       .then((res) => res.json())
-//       .then((articles) => {
-//         resolve({
-//           props: {
-//             articles,
-//           },
-//         });
-//       })
-//       .catch(reject);
-//   });
-// };

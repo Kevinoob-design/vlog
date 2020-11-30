@@ -5,7 +5,7 @@ import Nav from '../components/nav';
 function MyApp({ Component, pageProps }) {
   return (
     <div className='bg-gray-900 text-white font-sans min-h-screen'>
-      <div className='py-2 px-10'>
+      <div className='py-2 md:px-10'>
         <Nav />
         <Component {...pageProps} />
       </div>
