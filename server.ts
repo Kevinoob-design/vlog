@@ -72,7 +72,7 @@ export default (() => {
       // Injection of third party middleware
       server.use(morgan('dev', { stream: accessLogStream }));
       server.use(helmet());
-      server.use(bodyParser.json());
+      server.use(bodyParser.json({limit: '50mb'}));
 
       // Injection of first party middleware
       server.use('/api/', verifyAuthUser);

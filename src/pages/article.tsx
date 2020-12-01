@@ -1,10 +1,11 @@
-import { FaHeartBroken, FaHeart, FaCommentAlt, FaBookmark } from 'react-icons/Fa';
+import { FaHeartBroken, FaHeart, FaCommentAlt, FaShare } from 'react-icons/Fa';
 import { config } from 'config/config';
 import { Article } from './index';
 import CardArticle from '../components/cardArticle';
 import UserCard from '../components/userCard';
 import IconButton from '../components/IconButton';
 import moment from 'moment';
+import parse from 'html-react-parser';
 
 type Props = {
   article: Article;
@@ -21,16 +22,14 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
         </p>
         <UserCard uid={uid} />
 
-        <div className='space-y-10'>
-          <p className='text-6xl'>{title}</p>
-
-          <div className='min-h-screen text-xl tracking-wider leading-normal'>
-            <p>{post}</p>
+        <div className='space-y-10 max-w-6xl'>
+          <div className='min-h-screen text-xl tracking-wider leading-normal space-y-1 text-left  overflow-hidden'>
+            {parse(post)}
           </div>
         </div>
 
         <div>
-          <p className='text-center text-lg'>
+          <p className='text-center text-lg mt-16'>
             Read more from&nbsp;
             <span className='font-bold'>
               {uid.firstName} {uid.lastName}
@@ -43,7 +42,7 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
             <CardArticle key={_id} _id={_id} title={title} created={created} uid={uid} category={category} data={data} />
           </div>
 
-          <div className='flex justify-between items-center w-full border-2 border-opacity-5 border-white p-5 rounded-lg my-40'>
+          <div className='flex justify-between items-center w-full border-2 border-opacity-5 border-white p-5 rounded-lg my-16'>
             <p className='text-2xl'>Interested in more content from this publisher?</p>
             <button className='transition focus:outline-none border-2 border-white hover:bg-blue-900 hover:border-blue-900 rounded-lg p-1'>Subscribe</button>
           </div>
@@ -59,10 +58,11 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
       </div>
 
       <div>
-        <div className='sticky top-10 h-56 border-l-2 border-r-2 border-opacity-5 border-white p-5 flex flex-col justify-between mt-40'>
+        <div className='sticky top-10 h-56 py-5 space-y-4 flex flex-col justify-between mt-40'>
           <IconButton icon={<FaHeart className='w-7 h-7' />} counter={data.likes} />
           <IconButton icon={<FaHeartBroken className='w-7 h-7' />} counter={data.dislikes} />
           <IconButton icon={<FaCommentAlt className='w-7 h-7' />} counter={0} />
+          <IconButton icon={<FaShare className='w-7 h-7' />} />
         </div>
       </div>
     </div>
