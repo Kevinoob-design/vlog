@@ -8,7 +8,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      scale: ['active']
+    },
   },
   plugins: [
     require('tailwindcss-debug-screens'),

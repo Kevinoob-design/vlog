@@ -1,3 +1,5 @@
+import WsArticle from "../webservices/article";
+
 import {
   FaBold,
   FaItalic,
@@ -11,7 +13,7 @@ import {
   FaImage,
   FaUndo,
   FaRedo,
-  FaHtml5,
+  FaSave,
 } from 'react-icons/Fa';
 
 declare type ToolBarOptionProps = {
@@ -27,41 +29,25 @@ const Editor = () => {
   return (
     <div className='mx-auto bg-gray-900 text-white p-2 rounded-md max-w-6xl'>
       <ToolBar />
-      <h1 className='focus:outline-none p-2 text-white' contentEditable></h1>
-      <div
-        id='editable'
-        className='focus:outline-none p-2 min-h-screen'
-        contentEditable
-        onPaste={(ClipEvent) => {
-          const contentTarget = document.getElementById('editable');
-
-          let cbPayload = [...(ClipEvent.clipboardData || ClipEvent.originalEvent.clipboardData).items];
-          cbPayload = cbPayload.filter((i) => /image/.test(i.type));
-
-          if (!cbPayload.length || cbPayload.length === 0) return false;
-
-          const reader = new FileReader();
-          reader.onload = (ProgresEvent) => (contentTarget.innerHTML = `<img src="${ProgresEvent.target.result}">`);
-          reader.readAsDataURL(cbPayload[0].getAsFile());
-        }}
-      ></div>
+      <h1 id='editable-title' className='focus:outline-none p-2 text-white font-bold' contentEditable></h1>
+      <p id='editable-body' className='focus:outline-none p-2 min-h-screen' contentEditable></p>
     </div>
   );
 };
 
 const ToolBar = (): JSX.Element => {
   const getHtmlString = () => {
-    const oDoc = document.getElementById('editable');
+    const title = document.getElementById('editable-title');
+    const body = document.getElementById('editable-body');
 
-    const oContent = document.createTextNode(oDoc.innerHTML);
+    if (title.innerHTML.toString().length < 15) 
+      return console.log('You mus provide with a descriptive title');
 
-    const oPre = document.createElement('pre');
+    console.log(title.innerHTML.toString());
+    console.log(body.innerHTML.toString());
 
-    oPre.id = 'sourceText';
+    const wsArticle = new WsArticle();
 
-    oPre.appendChild(oContent);
-
-    console.log(oPre.innerHTML.toString());
   };
 
   return (
@@ -94,7 +80,7 @@ const ToolBar = (): JSX.Element => {
       </ToolBarSection>
 
       <ToolBarSection>
-        <ToolBarOption icon={<FaHtml5 className='text-white' />} onClick={(e) => getHtmlString()} />
+        <ToolBarOption icon={<FaSave className='text-white' />} onClick={(e) => getHtmlString()} />
       </ToolBarSection>
     </div>
   );
@@ -107,7 +93,7 @@ const ToolBarSection = ({ children }: React.PropsWithChildren<ToolBarSectionProp
 const ToolBarOption = ({ onClick, icon }: React.PropsWithoutRef<ToolBarOptionProps>): JSX.Element => {
   return (
     <div className='cursor-pointer'>
-      <button onClick={onClick} className='hover:bg-gray-700 rounded-md focus:outline-none transition'>
+      <button onClick={onClick} className='hover:bg-gray-700 rounded-md focus:outline-none transition transform active:scale-y-90 active:scale-x-90'>
         <div className='m-2'>{icon}</div>
       </button>
     </div>
@@ -115,3 +101,50 @@ const ToolBarOption = ({ onClick, icon }: React.PropsWithoutRef<ToolBarOptionPro
 };
 
 export default Editor;
+
+// onPaste={(ClipEvent) => {
+//   const contentTarget = document.getElementById('editable');
+
+//   let cbPayload = [...(ClipEvent.clipboardData || ClipEvent.originalEvent.clipboardData).items];
+//   cbPayload = cbPayload.filter((i) => /image/.test(i.type));
+
+//   if (!cbPayload.length || cbPayload.length === 0) return false;
+
+//   const reader = new FileReader();
+//   reader.onload = (ProgresEvent) => {
+//     const img = document.createElement('img');
+//     const canvas = document.createElement('canvas');
+//     let ctx = canvas.getContext('2d');
+
+//     ctx.drawImage(img, 0, 0);
+
+//     const MAX_WIDTH = 10;
+//     const MAX_HEIGHT = 10;
+//     let width = img.width;
+//     let height = img.height;
+
+//     if (width > height) {
+//       if (width > MAX_WIDTH) {
+//         height *= MAX_WIDTH / width;
+//         width = MAX_WIDTH;
+//       }
+//     } else {
+//       if (height > MAX_HEIGHT) {
+//         width *= MAX_HEIGHT / height;
+//         height = MAX_HEIGHT;
+//       }
+//     }
+
+//     canvas.width = width;
+//     canvas.height = height;
+
+//     ctx = canvas.getContext('2d');
+//     ctx.drawImage(img, 0, 0, width, height);
+
+//     console.log(ctx);
+
+//     contentTarget.innerHTML.concat(canvas.toDataURL());
+
+//     // contentTarget.innerHTML.concat(`<img src="${ProgresEvent.target.result}">`);
+//   };
+// }}
