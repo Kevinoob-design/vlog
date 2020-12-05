@@ -1,18 +1,30 @@
 import HalfContainer from './halfContainer';
 import ProfilePic from './profilePic';
 import NavLink from './navLink';
+import { UserContext } from '../pages/_app';
+import React from 'react';
 
 const Nav = () => {
+  const { user, setUser } = React.useContext(UserContext);
+
   return (
-    <nav className='h-10 flex mb-14'>
+    <nav className='h-10 flex space-x-5'>
       <HalfContainer>
         <NavLink href='/' />
+
+        <NavLink href='/create-article'>
+          <>Write an article</>
+        </NavLink>
       </HalfContainer>
 
       <HalfContainer className='flex justify-end'>
-        <NavLink href='profile'>
-          <ProfilePic />
-        </NavLink>
+        {user ? (
+          <NavLink href='profile'>
+            <ProfilePic />
+          </NavLink>
+        ) : (
+          <NavLink href='login'></NavLink>
+        )}
       </HalfContainer>
     </nav>
   );

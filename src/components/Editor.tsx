@@ -1,4 +1,7 @@
-import WsArticle from "../webservices/article";
+import WsArticle from '../webservices/article';
+import { UserContext } from '../pages/_app';
+import React from 'react';
+import Router from 'next/router';
 
 import {
   FaBold,
@@ -36,18 +39,35 @@ const Editor = () => {
 };
 
 const ToolBar = (): JSX.Element => {
+  const { user, setUser } = React.useContext(UserContext);
+
   const getHtmlString = () => {
     const title = document.getElementById('editable-title');
     const body = document.getElementById('editable-body');
 
-    if (title.innerHTML.toString().length < 15) 
-      return console.log('You mus provide with a descriptive title');
+    if (title.innerHTML.toString().length < 15) return console.log('You mus provide with a descriptive title');
 
-    console.log(title.innerHTML.toString());
-    console.log(body.innerHTML.toString());
+    // console.log(title.innerHTML.toString());
+    // console.log(body.innerHTML.toString());
 
     const wsArticle = new WsArticle();
 
+    console.log(user.bearer);
+
+    wsArticle
+      ._post(
+        'article/access/create-article',
+        {
+          title: title.innerHTML.toString(),
+          post: body.innerHTML.toString(),
+          category: ['Test'],
+        },
+        { Authorization: `Bearer ${user.bearer}` }
+      )
+      .then((postDoc) => {
+        Router.push(`article?id=${postDoc._id}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

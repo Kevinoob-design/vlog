@@ -10,7 +10,7 @@ type Props = {
 };
 
 const UserCard = ({ uid }: React.PropsWithoutRef<Props>) => {
-  const socialMedia = new Map(Object.entries(uid.socialMedia));
+  const socialMedia = new Map(Object.entries(uid.socialMedia || new Map()));
 
   return (
     <div className='border-t-2 border-b-2 border-opacity-5 py-5 border-white flex space-x-5'>

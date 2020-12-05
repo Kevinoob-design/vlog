@@ -1,31 +1,32 @@
-require('tailwindcss/defaultConfig');
-const plugin = require('tailwindcss/plugin');
+require( 'tailwindcss/defaultConfig' );
+const plugin = require( 'tailwindcss/plugin' );
 
 module.exports = {
   purge: [],
-  darkMode: false,
+  darkMode: 'media',
   theme: {
     extend: {},
   },
   variants: {
     extend: {
-      scale: ['active']
+      scale: [ 'active', 'hover' ],
+      translate: [ 'active', 'hover' ]
     },
   },
   plugins: [
-    require('tailwindcss-debug-screens'),
-    plugin(function ({ addBase, addUtilities }) {
-      addUtilities({
+    plugin( function ( { addBase, addUtilities, theme } ) {
+      addUtilities( {
         '.primary-bg-color': {
-          'background-color': 'black',
+          'background-color': theme( 'colors.black' ),
         },
-      }),
-        addBase({
-          h1: { 'font-size': '3rem', 'line-height': '1' },
-          h2: { 'font-size': '1.875rem', 'line-height': '2.25rem' },
-          h3: { 'font-size': '1.5rem', 'line-height': '2rem' },
-          p: { 'font-size': '1.25rem', 'line-height': '1.75rem' },
-        });
-    }),
+      } ),
+        addBase( {
+          h1: { fontSize: theme( 'fontSize.5xl' ) },
+          h2: { fontSize: theme( 'fontSize.3xl' ) },
+          h3: { fontSize: theme( 'fontSize.2xl' ) },
+          p: { fontSize: theme( 'fontSize.xl' ) },
+          span: { fontSize: theme( 'fontSize.sm' ) },
+        } );
+    } ),
   ],
 };

@@ -2,19 +2,19 @@ import WsBase from './wsbase';
 import axios from 'axios';
 
 export declare type Article = {
-  _id: string;
-  data: {
+  _id?: string;
+  data?: {
     views: number;
     likes: number;
     dislikes: number;
   };
   category: string[];
   imgUrl?: string;
-  created: Date;
-  edited: boolean;
+  created?: Date;
+  edited?: boolean;
   title: string;
   post: string;
-  uid: {
+  uid?: {
     followers: number;
     firstName: string;
     lastName: string;
@@ -33,7 +33,7 @@ class WsArticles extends WsBase<Article> implements Article {
   public post: string;
   public uid: { followers: number; firstName: string; lastName: string; socialMedia: Map<string, string> };
 
-  WsArticles(init: Article) {
+  private WsArticles(init: Article): void {
     this._id = init._id;
     this.category = init.category;
     this.created = init.created || new Date();

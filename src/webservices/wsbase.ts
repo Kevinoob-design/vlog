@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 interface IWsbase<T> {
   _get: (endpoint: string) => Promise<T>;
   _getBy: (endpoint: string, bodyOptions?: object, paramOption?: string, queryOption?: string) => Promise<T>;
@@ -8,17 +10,37 @@ interface IWsbase<T> {
 }
 
 class WsBase<T> implements IWsbase<T> {
-  public _get: (endpoint: string) => Promise<T>;
+  public baseUrl = `/api`;
 
-  public _getBy: (endpoint: string, bodyOptions?: object, paramOption?: string, queryOption?: string) => Promise<T>;
+  public _get = (endpoint: string): Promise<T> => {
+    return new Promise<T>((resolve, reject) => {
+      axios
+        .get<T>(`${this.baseUrl}/${endpoint}`)
+        .then((response) => resolve(response.data))
+        .catch(reject);
+    });
+  };
 
-  public _post: (endpoint: string, payLoad?: T) => Promise<T>;
+  public _getBy = (endpoint: string, bodyOptions?: object, paramOption?: string, queryOption?: string): Promise<T> => {
+    return new Promise<T>((resolve, reject) => {});
+  };
 
-  public _put: (endpoint: string, payLoad: T) => Promise<T>;
+  public _post = (endpoint: string, payLoad?: T, headers?): Promise<T> => {
+    return new Promise<T>((resolve, reject) => {
+      axios
+        .post<T>(`${this.baseUrl}/${endpoint}`, payLoad, { headers })
+        .then((response) => resolve(response.data))
+        .catch(reject);
+    });
+  };
 
-  public _delete: (endpoint: string, payLoad: T) => Promise<T>;
+  public _put = (endpoint: string, payLoad: T): Promise<T> => {
+    return new Promise<T>((resolve, reject) => {});
+  };
 
-  public baseUrl = `${process.env.API}/api/`;
+  public _delete = (endpoint: string, payLoad: T): Promise<T> => {
+    return new Promise<T>((resolve, reject) => {});
+  };
 }
 
 export default WsBase;

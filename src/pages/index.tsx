@@ -39,7 +39,7 @@ const Home = ({}: React.PropsWithoutRef<Articles>) => {
   const { articles, error } = useGetPosts('/article/get-articles');
 
   return (
-    <div className='max-w-screen-2xl mx-auto'>
+    <div className='max-w-screen-2xl mx-auto mt-10'>
       <SearchBar placeHolder='Search for articles' className='w-full' onChange={onChange} />
       {!articles || error ? (
         <h1>Loading...</h1>

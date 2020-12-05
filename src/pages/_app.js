@@ -3,16 +3,22 @@ import '../styles/globals.css';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <div className='primary-bg-color text-white font-sans min-h-screen debug-screens'>
-      <div className='py-2 md:px-10'>
-        <Nav />
-        <Component {...pageProps} />
-      </div>
+export const UserContext = React.createContext(null);
 
-      <Footer />
-    </div>
+function MyApp ( { Component, pageProps } ) {
+
+  const [ user, setUser ] = React.useState( null );
+
+  return (
+    <UserContext.Provider value={ { user, setUser } }>
+      <div className='primary-bg-color text-white font-sans min-h-screen debug-screens'>
+        <div className='py-2 md:px-10'>
+          <Nav />
+          <Component { ...pageProps } />
+        </div>
+        <Footer />
+      </div>
+    </UserContext.Provider>
   );
 }
 

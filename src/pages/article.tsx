@@ -4,6 +4,7 @@ import { Article } from './index';
 import CardArticle from '../components/cardArticle';
 import UserCard from '../components/userCard';
 import IconButton from '../components/IconButton';
+import { SecondaryButton } from '../components/customButton';
 import moment from 'moment';
 import parse from 'html-react-parser';
 
@@ -23,6 +24,7 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
         <UserCard uid={uid} />
 
         <div className='space-y-10 max-w-6xl'>
+          <h1> {title} </h1>
           <div className='min-h-screen text-xl tracking-wider leading-normal space-y-1 text-left  overflow-hidden'>{parse(post)}</div>
         </div>
 
@@ -42,9 +44,9 @@ const ArticlePage = ({ article }: React.PropsWithoutRef<Props>) => {
 
           <div className='flex justify-between items-center w-full border-2 border-opacity-5 border-white p-5 rounded-lg my-16'>
             <p className='text-2xl'>Interested in more content from this publisher?</p>
-            <button className='transition focus:outline-none border-2 border-white hover:bg-blue-900 hover:border-blue-900 rounded-lg p-1 transform active:scale-y-95 active:scale-x-95'>
-              Subscribe
-            </button>
+            <SecondaryButton>
+              <span>Subscribe</span>
+            </SecondaryButton>
           </div>
         </div>
 
