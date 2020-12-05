@@ -25,7 +25,7 @@ export interface IUser extends Document {
   fullName?: string;
   followers: number;
   bio?: string;
-  socialMedia?: [Map<string, string>];
+  socialMedia?: Map<string, string>;
   bookmarks?: [string];
   account: IUserAccount;
   createdDate: Date;

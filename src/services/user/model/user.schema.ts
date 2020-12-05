@@ -29,7 +29,7 @@ const userSchema: Schema<IUser> = new Schema({
     required: false,
   },
   socialMedia: {
-    type: [type.Map],
+    type: type.Map,
     of: type.String,
     required: false,
   },

@@ -1,4 +1,4 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import { IComment } from '../comment.d';
 
@@ -8,7 +8,7 @@ const commentSchema: Schema<IComment> = new Schema({
   _id: {
     type: type.ObjectId,
     required: [true, 'ID most be provided'],
-    default: Types.ObjectId(),
+    auto: true,
   },
   uid: {
     type: type.ObjectId,

@@ -1,6 +1,7 @@
 export interface IEnvironmentConfig {
   PORT:                                                     number;
   DBURI:                                                    string;
+  SERVER:                                                   string;
   SALT:                                                     number;
   SECRET:                                                   string;
   FIRE_BASE_API_KEY:                                        string;
@@ -10,7 +11,7 @@ export interface IEnvironmentConfig {
   FIRE_BASE_STORAGE_BUCKET:                                 string;
   FIRE_BASE_MESSAGING_SENDER_ID:                            string;
   FIRE_BASE_APP_ID:                                         string;
-  FIRE_BASE_MEASUREMENT_ID:                                  string;
+  FIRE_BASE_MEASUREMENT_ID:                                 string;
   ADMIN_FIRE_BASE_TYPE:                                     string;
   ADMIN_FIRE_BASE_PROJECT_ID:                               string;
   ADMIN_FIRE_BASE_PRIVATE_KEY_ID:                           string;

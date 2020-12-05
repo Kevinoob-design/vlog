@@ -22,7 +22,7 @@ export default class Article {
         })
         .catch((err) => {
           console.error(err);
-          rejects({ err, msg: 'An error occured posting your article' });
+          rejects({ err, msg: 'An error occurred posting your article' });
         });
     });
   };

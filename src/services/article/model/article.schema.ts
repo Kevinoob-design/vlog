@@ -1,4 +1,4 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import { IArticle } from '../article';
 
@@ -8,7 +8,7 @@ const articleSchema: Schema<IArticle> = new Schema({
   _id: {
     type: type.ObjectId,
     required: [true, 'ID must be generated as an object id'],
-    default: Types.ObjectId(),
+    auto: true,
   },
   uid: {
     type: type.String,
