@@ -1,7 +1,7 @@
 import { IEnvironment, IEnvironmentConfig, IFireBaseConfig, IAdminFireBaseConfig } from './config.d';
 import { readFileSync } from 'fs';
 
-const AdminFirebasePrivateKey = readFileSync('key.pem').toString();
+const AdminFirebasePrivateKey = readFileSync('key.pem').toString() || '';
 
 // Creating config based environment
 const environment: IEnvironment = {

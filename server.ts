@@ -13,7 +13,7 @@ import { initializeApp as initializeAppAdmin, credential } from 'firebase-admin'
 
 // Require of third party middleware.
 import morgan from 'morgan';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import bodyParser from 'body-parser';
 
 // Require first party middleware.
@@ -71,7 +71,7 @@ export default (() => {
 
       // Injection of third party middleware
       server.use(morgan('dev', { stream: accessLogStream }));
-      server.use(helmet());
+      // server.use(helmet());
       server.use(bodyParser.json());
 
       // Injection of first party middleware
