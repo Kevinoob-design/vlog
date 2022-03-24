@@ -29,7 +29,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
     "next": "^10.0.3",
-    "node-forge": "^0.10.0",
+    "node-forge": "^1.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-froala-wysiwyg": "^3.2.3",
